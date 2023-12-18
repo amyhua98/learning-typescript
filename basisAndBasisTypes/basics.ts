@@ -1,4 +1,4 @@
-function add(n1: number, n2: number, showResults: boolean, phrase: string){
+function addBasic(n1: number, n2: number, showResults: boolean, phrase: string){
     if (typeof n1 !== 'number' ||  typeof n2 !== 'number' ){
         throw new Error('Incorrect input!')
     }
@@ -15,4 +15,4 @@ const number2 = 2.8
 const printResults = true
 const resultPhrase = "Results is: "
 
-add(number1, number2, printResults, resultPhrase)
+addBasic(number1, number2, printResults, resultPhrase)

@@ -7,7 +7,7 @@ age = 25
 
 //var is valid but not really used in Typescript, only for global and function scope
 
-const add = (a: number, b: number) => {
+const addArrow = (a: number, b: number) => {
     return a+b
 }
 
