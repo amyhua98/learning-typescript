@@ -1,16 +1,20 @@
-class Department {
+abstract class Department {
+    static year = 2023
     // private id: string;
     // private name: string;
     protected employees:string[] = [];
 
-    constructor(private readonly id: String, private name: string) {
+    constructor(protected readonly id: String, private name: string) {
         //this.id = id;
         //this.name = n;
     }
 
-    describe(this: Department){
-        console.log(`Department:( ${this.id}): ${this.name} `)
+    static createEmployee(name: string){
+        return {name: name}
     }
+
+    abstract describe(this: Department): void
+
     addEmployee(employee: string) {
         this.employees.push(employee)
     }
@@ -27,10 +31,15 @@ class ITDepartment extends Department {
         super(id, 'IT');
         this.admins = admins
     }
+
+    describe() {
+        console.log('IT Department ID: ' + this.id)
+    }
 }
 
 class AccountingDepartment extends Department {
     private lastReport: string;
+    private static instance: AccountingDepartment
 
     get mostRecentReport() {
         if (this.lastReport){
@@ -45,9 +54,21 @@ class AccountingDepartment extends Department {
         this.addReport(value)
     }
 
-    constructor(id: string, private reports: string[]) {
+    private constructor(id: string, private reports: string[]) {
         super(id, 'Accounting');
         this.lastReport = reports[0]
+    }
+    //singleton - use when we only want one instance of an object (ex. account department - we only need one account department)
+    static getInstance() {
+        if (AccountingDepartment.instance){
+            return this.instance
+        }
+        this.instance = new AccountingDepartment('0002', [])
+        return this.instance
+    }
+
+    describe() {
+        console.log('Accounting Department ID: ' + this.id)
     }
     addEmployee(name: string){
         this.employees.push(name)
@@ -64,6 +85,9 @@ class AccountingDepartment extends Department {
     }
 }
 
+const employee1 = Department.createEmployee("Amy")
+console.log(employee1)
+
 const it = new ITDepartment('0001', ['it'])
 
 it.addEmployee('Boba')
@@ -73,8 +97,17 @@ it.addEmployee('Anna')
 it.describe()
 it.printEmployeesInfo()
 
-const accounting = new AccountingDepartment('0002', [''])
-accounting.mostRecentReport = ''
+// const accounting = new AccountingDepartment('0002', [''])
+
+const accounting =  AccountingDepartment.getInstance()
+const accounting2 =  AccountingDepartment.getInstance()
+
+
+console.log(accounting)
+console.log(accounting2)
+
+
+accounting.mostRecentReport = 'Year End Report'
 
 console.log(accounting.mostRecentReport)
 
@@ -82,8 +115,10 @@ accounting.addEmployee('Anna')
 
 accounting.addReport("first thing firsts im the realest")
 
-accounting.printReports()
-accounting.printEmployeesInfo()
+// accounting.printReports()
+// accounting.printEmployeesInfo()
+
+accounting.describe()
 // const itCopy = { name: 'dummy', describe: it.describe }
 
 // itCopy.describe()

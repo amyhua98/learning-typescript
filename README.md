@@ -1,6 +1,6 @@
 # Learning Typescript
 
-Foobar is a Python library for dealing with word pluralization.
+Working examples of course work from "Understanding Typescript" from Maximilian Schwarzmüller on Udemy
 
 ## Installation
 
