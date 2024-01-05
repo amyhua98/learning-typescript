@@ -22,12 +22,12 @@ const e1: ElevatedEmployee = {
 // };
 
 //intersection types can have multiple structures
-type Combinable = string | number;
+type Combine = string | number;
 type Numeric = number | boolean;
 
-type Universal = Combinable & Numeric;
+type Universal = Combine & Numeric;
 
-function addU(a: Combinable, b: Combinable) {
+function addU(a: Combine, b: Combine) {
     //type guard: typeof
     if (typeof a === 'string' || typeof b === 'string') {
         return a.toString() + b.toString();
@@ -46,8 +46,8 @@ console.log(fetchedUserData?.job.title)
 
 
 //nullish coalescing: if null the ?? will return the latter
-const userInput = null;
-const storedData = userInput ?? 'DEFAULT';
+const input = null;
+const storedData = input ?? 'DEFAULT';
 
 // type UnknownEmployee = Employee | Admin;
 
