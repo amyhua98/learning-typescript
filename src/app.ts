@@ -26,5 +26,5 @@ function merge<T, U>(a: T, b: U) {
 // the T would represent something like this example
 // const mergedObj = merge({name: 'Max'}, {age: 30}) as {name: string, age: number}
 
-const mergedObj = merge({name: 'Max'}, {age: 30}) as {name: string, age: number}
+const mergedObj = merge({name: 'Matt', hobbies: ['Sports']}, 30)
 console.log(mergedObj.age)
