@@ -19,6 +19,7 @@
 
 //T and U is essential saying theres gonna be a that is type Object blah and b that is type Object blah blah
 //good in situation when we have a vague variable and better readability
+
 function merge<T, U>(a: T, b: U) {
     return Object.assign(a,b);
 }
@@ -28,3 +29,12 @@ function merge<T, U>(a: T, b: U) {
 
 const mergedObj = merge({name: 'Matt', hobbies: ['Sports']}, 30)
 console.log(mergedObj.age)
+
+
+//constraints: have a limit on what you would want on your generic types
+function mergeConstraint<T extends object, U extends object>(a: T, b: U) {
+    return Object.assign(a,b);
+}
+
+const mergedConstraintObj = merge({name: 'Matt', hobbies: ['Sports']}, 30)
+console.log(mergedConstraintObj)
