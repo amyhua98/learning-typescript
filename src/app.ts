@@ -31,7 +31,7 @@ const mergedObj = merge({name: 'Matt', hobbies: ['Sports']}, 30)
 console.log(mergedObj.age)
 
 
-//constraints: have a limit on what you would want on your generic types
+//constraints: have a limit on what you would want on your generic types, on this example it guarantees that an object is coming back
 function mergeConstraint<T extends object, U extends object>(a: T, b: U) {
     return Object.assign(a,b);
 }
