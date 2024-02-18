@@ -12,15 +12,32 @@
  */
 
 function Logger(logString: string){
+    console.log('CONSOLE LOGGER');
     return function(constructor: Function){
         console.log(logString);
         console.log(constructor);
     }
 }
-
+// the Wtih template is the factory, the function statement inside the WithTemplate is the actual decorator
+function WithTemplate(template: string, hookId: string) {
+    console.log('TEMPLATE LOGGER');
+    return function( constructor: any) {
+        console.log('Render template')
+        const hookEl = document.getElementById(hookId);
+        const p = new constructor();
+        if (hookEl){
+            hookEl.innerHTML = template;
+            hookEl.querySelector('h1')!.textContent = p.name
+        }
+    }
+}
 
 //@Logger - TS takes it as a decorator, decorators are marked with @, there are builtin ones and you can create custom ones
-@Logger('LOGGING - PERSON')
+// @Logger('LOGGING - PERSON')
+
+//Can have multiple decorators to a class, goes in a bottom up order
+@Logger('LOGGING')
+@WithTemplate('<h1>My Person Object<h1>', 'app')
 class Person {
     name = 'Max';
 
@@ -31,3 +48,62 @@ class Person {
 
 const pers = new Person();
 console.log(pers)
+
+
+// --
+
+// Shows in browser console even it not ititalize, Javascript reads it once it compiles, gives a prototype of the property
+function Log(target:any, propertyName: string | Symbol ){
+    console.log('Property Decorator!');
+    console.log(target, propertyName);
+}
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor){
+    console.log('Access Decorator!');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+function Log3(target: any, name: string | Symbol, descriptor: PropertyDescriptor){
+    console.log('Method Decorator!');
+    console.log(target);
+    console.log(name);
+    console.log(descriptor);
+}
+
+function Log4(target: any, name: string | Symbol, position: number){
+    console.log('Parameter Decorator!');
+    console.log(target);
+    console.log(name);
+    console.log(position);
+}
+
+class Product {
+    // Decorators can work on properties
+    @Log
+    title:  string;
+    private _price: number;
+
+    @Log2
+    set price(val: number) {
+        if (val > 0){
+            this._price = val;
+        } throw new Error('Invalid price - should be positive!');
+    }
+
+    constructor(t: string, p: number){
+        this.title = t;
+        this._price = p;
+    }
+    //Method decorator as Log3 and Parameter decorator as Log4
+    @Log3
+    getPriceWithTax(@Log4 tax: number){
+        return this._price * (1 + tax);
+    }
+
+    /**
+     * All decorators when classes are defined
+     */
+
+}
