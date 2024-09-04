@@ -11,7 +11,7 @@ npm install
 
 Download lite-server if you havent yet
 ```bash
-npm install
+npm install lite-server --save-dev
 ```
 Download typescript if you havent yet
 ```bash
